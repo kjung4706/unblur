@@ -1,30 +1,55 @@
-<script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
-</script>
-
 <template>
-  <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
-  </div>
-  <HelloWorld msg="Vite + Vue" />
+  <main class="container">
+    <h1>Unblur</h1>
+    <p class="tagline">A clearer way to read.</p>
+
+    <textarea
+      v-model="text"
+      placeholder="Paste text here..."
+      class="input"
+    ></textarea>
+
+    <button class="button">
+      Analyze & Optimize
+    </button>
+  </main>
 </template>
 
+<script setup lang="ts">
+import { ref } from 'vue'
+
+const text = ref('')
+</script>
+
 <style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+.container {
+  max-width: 700px;
+  margin: 4rem auto;
+  padding: 2rem;
+  text-align: center;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
 }
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+
+.tagline {
+  color: #666;
+  margin-bottom: 2rem;
+}
+
+.input {
+  width: 100%;
+  min-height: 150px;
+  padding: 1rem;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.button {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  cursor: pointer;
 }
 </style>
