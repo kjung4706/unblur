@@ -31,11 +31,12 @@ const readerStyles = computed(() => ({
 <style scoped>
 .reader-wrapper {
   padding: 2rem 1rem;
-  min-height: 300px;
+  height: 200px;
+  overflow-y: auto;
+  border-radius: 12px;
   transition: background 0.3s, color 0.3s;
 }
 
-/* Themes */
 .reader-wrapper.light {
   background: #ffffff;
   color: #111111;
@@ -53,6 +54,10 @@ const readerStyles = computed(() => ({
 
 .reader {
   transition: all 0.2s ease;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  white-space: pre-wrap;
+  padding: 0 2rem;
 }
 
 .reader p {

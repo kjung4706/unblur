@@ -56,10 +56,13 @@ const reader = useReaderStore()
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    padding: 1rem;
-    max-width: 400px;
-    margin: 2rem auto;
+    padding: 1.5rem;
+    background: #fafafa;
+    border-radius: 12px;
+    border: 1px solid #eee;
 }
+
+
 
 label {
     display: flex;
