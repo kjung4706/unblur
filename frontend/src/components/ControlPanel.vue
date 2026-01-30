@@ -59,7 +59,7 @@ const reader = useReaderStore()
     padding: 1.5rem;
     background: #fafafa;
     border-radius: 12px;
-    border: 1px solid #eee;
+    border: 1px solid #888;
 }
 
 
