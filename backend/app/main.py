@@ -1,37 +1,32 @@
 from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+from google import genai
+from fastapi.middleware.cors import CORSMiddleware
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 app = FastAPI()
 
-origins = [
-    "http://localhost:5173",
-]
-
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=["http://localhost:5173"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
+client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
+
 class OptimizeRequest(BaseModel):
     text: str
 
-class OptimizeResponse(BaseModel):
-    optimized_text: str
-
-
-@app.get("/")
-def read_root():
-    return {"message": "Unblur backend running"}
-
-
-@app.post("/optimize", response_model=OptimizeResponse)
-def optimize_text(request: OptimizeRequest):
-    processed = request.text.strip()
-
-    return OptimizeResponse(
-        optimized_text=f"Optimized: {processed}"
+@app.post("/optimize")
+def optimize_text(data: OptimizeRequest):
+    response = client.models.generate_content(
+        model="gemini-2.5-flash",
+        contents=f"Simplify this text for easier reading:\n\n{data.text}"
     )
+
+    return {"optimized_text": response.text}

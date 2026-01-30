@@ -15,9 +15,9 @@ frontend/dist-ssr
 
 # ===== Backend =====
 backend/venv
-backend/__pycache__
+backend/app/__pycache__
+backend/app/*.pyc
 backend/.env
-backend/*.pyc
 
 # Editor directories and files
 .vscode/*
@@ -29,5 +29,3 @@ backend/*.pyc
 *.njsproj
 *.sln
 *.sw?
-
-todo
