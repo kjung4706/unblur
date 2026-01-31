@@ -40,8 +40,7 @@ async function optimizeText() {
 .input-panel {
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
-    padding: 1.5rem;
+    padding: 1rem;
     background: #FFF;
     border-radius: 12px;
     border: 1px solid #888;

@@ -35,6 +35,17 @@
         </label>
 
         <label>
+            Letter Spacing: {{ reader.letterSpacing }}px
+            <input
+                type="range"
+                min="0"
+                max="4"
+                step="0.1"
+                v-model.number="reader.letterSpacing"
+            />
+        </label>
+
+        <label>
             Theme:
             <select v-model="reader.theme">
             <option value="light">Light</option>
@@ -55,8 +66,8 @@ const reader = useReaderStore()
 .controls {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-    padding: 1.5rem;
+    gap: 0.5rem;
+    padding: 1rem;
     background: #fafafa;
     border-radius: 12px;
     border: 1px solid #888;

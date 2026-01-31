@@ -30,8 +30,8 @@ const readerStyles = computed(() => ({
 
 <style scoped>
 .reader-wrapper {
-  padding: 2rem 1rem;
-  height: 200px;
+  padding: 0 1rem;
+  height: 175px;
   overflow-y: auto;
   border-radius: 12px;
   transition: background 0.3s, color 0.3s;

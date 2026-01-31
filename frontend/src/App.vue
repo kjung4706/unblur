@@ -26,7 +26,7 @@ import ReaderView from './components/ReaderView.vue'
 
 <style scoped>
 .app {
-  padding: 2rem;
+  padding: 1rem;
   max-width: 1200px;
   margin: 0 auto;
 }
