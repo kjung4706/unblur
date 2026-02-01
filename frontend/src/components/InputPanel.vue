@@ -1,26 +1,40 @@
 <template>
-    <div class="input-panel">
-        <h2>Input Text</h2>
-        <textarea
-            v-model="reader.text"
-            placeholder="Paste or type text here..."
-            class="input-box"
-        />
-        <button @click="optimizeText" class="optimize-btn">
-            Optimize
-        </button>
-    </div>
+  <div class="input-panel">
+    <h2>Input Text</h2>
+    <textarea
+      v-model="reader.text"
+      placeholder="Paste or type text here..."
+      class="input-box"
+    />
+    <button
+      @click="optimizeText"
+      :disabled="isLoading"
+      class="optimize-btn"
+    >
+      <span v-if="!isLoading">Optimize</span>
+      <span v-else class="spinner-wrapper">
+        <span class="spinner"></span>
+        Optimizing...
+      </span>
+    </button>
+  </div>
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue'
 import { useReaderStore } from '../store/readerStore.ts'
 
 const reader = useReaderStore()
-
 const API_URL = import.meta.env.VITE_API_URL
 
+const isLoading = ref(false)
+
 async function optimizeText() {
+  if (!reader.text.trim() || isLoading.value) return
+
   try {
+    isLoading.value = true
+
     const response = await fetch(`${API_URL}/optimize`, {
       method: "POST",
       headers: {
@@ -31,12 +45,15 @@ async function optimizeText() {
 
     const data = await response.json()
     reader.text = data.optimized_text
+
   } catch (error) {
     console.error("Optimization failed:", error)
+  } finally {
+    isLoading.value = false
   }
 }
-
 </script>
+
 
 <style scoped>
 .input-panel {
@@ -59,11 +76,47 @@ async function optimizeText() {
 
 .optimize-btn {
   margin-top: 1rem;
-  padding: 0.6rem 1rem;
-  border-radius: 6px;
+  padding: 0.7rem 1.2rem;
+  border-radius: 8px;
   border: none;
-  background: #333;
+  background: #000;
   color: #EEE;
   cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
+.optimize-btn:hover:not(:disabled) {
+  background: #444;
+}
+
+.optimize-btn:disabled {
+  background: #777;
+  cursor: not-allowed;
+  opacity: 0.8;
+}
+
+.spinner-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid #fff;
+  border-top: 2px solid transparent;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 </style>

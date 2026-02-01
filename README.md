@@ -30,6 +30,8 @@ windows
 python -m venv .venv
 .\.venv\Scripts\activate
 pip install fastapi uvicorn google-genai python-dotenv
+
+pip install -r requirements.txt
 pip freeze > requirements.txt
 
 mac
