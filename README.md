@@ -1,44 +1,97 @@
-# Vue 3 + TypeScript + Vite
+# Unblur
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+Unblur is an AI-powered accessibility reader designed to improve text readability through dynamic typography controls and AI-based text simplification.
 
-Learn more about the recommended Project Setup and IDE Support in the [Vue Docs TypeScript Guide](https://vuejs.org/guide/typescript/overview.html#project-setup).
+Built with Vue 3 + FastAPI + Gemini API.
 
-Todo:
-upload backend to server hosting (e.g. render)
-reconnect api server to frontend
+---
 
+## ✨ Features
 
-Documentation:
+- AI-powered text simplification
+- Adjustable typography controls
+  - Font size
+  - Line height
+  - Letter spacing
+  - Max width
+  - Theme (Light / Dark / Sepia)
+- Centralized state management (Pinia)
+- Responsive layout (Tailwind CSS)
 
+---
+
+## 🛠 Tech Stack
+
+Frontend:
+- Vue 3 + TypeScript
+- Pinia
+- Tailwind CSS
+- Vite
+
+Backend:
+- FastAPI
+- Google Gemini API
+- Python 3
+
+Deployment:
+- Frontend: Vercel
+- Backend: Render
+
+---
+
+## 🏗 Architecture
+
+Frontend → `/optimize` endpoint → FastAPI → Gemini API → simplified text returned → ReaderView updates.
+
+Typography state is centrally managed via Pinia.
+
+---
+
+## 🚀 Local Development
+
+### Frontend
+
+```bash
+cd frontend
+npm install
 npm run dev
-npm run build
+```
 
-git add .
-git commit -m "message"
-git push origin main
+Create frontend/.env:
+VITE_API_URL=http://127.0.0.1:8000
 
-color theme:
-#666
-#111
-#f8f9fa
-#b9c9d8
-#bed8b9
-#FAF9F6
+Vercel frontend requires:
+VITE_API_URL=https://your-render-url.onrender.com
 
-windows
-python -m venv .venv
-.\.venv\Scripts\activate
-pip install fastapi uvicorn google-genai python-dotenv
+### Backend
 
-pip install -r requirements.txt
-pip freeze > requirements.txt
-
-mac
+Mac / Linux
+```bash
+cd backend
 python3 -m venv .venv
 source .venv/bin/activate
-pip install fastapi uvicorn google-genai python-dotenv
-pip freeze > requirements.txt
-
+pip install -r requirements.txt
 uvicorn app.main:app --reload
+```
+
+Windows
+```bash
+cd backend
+python -m venv .venv
+.\.venv\Scripts\activate
+pip install -r requirements.txt
+uvicorn app.main:app --reload
+```
+
+Create backend/.env:
+GEMINI_API_KEY=your_api_key_here
+
+Render runs backend with:
 uvicorn app.main:app --host 0.0.0.0 --port 10000
+
+## 📌 Motivation
+
+Unblur explores accessibility-first UI design and AI-assisted text simplification.
+The project focuses on clean state management, full-stack integration, and scalable architecture.
+
+Future improvements will expand adaptive personalization and richer text analysis.
