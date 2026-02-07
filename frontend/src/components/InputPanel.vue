@@ -1,26 +1,40 @@
 <template>
-  <div class="input-panel">
-    <h2>Input Text</h2>
+  <div class="bg-white rounded-xl border border-gray-300 p-4 space-y-4 shadow-sm flex flex-col h-full">
+
+    <h2 class="text-lg font-semibold">Input Text</h2>
+
     <textarea
       v-model="reader.text"
       placeholder="Paste or type text here..."
-      class="input-box"
+      class="w-full min-h-[240px] p-4 text-base border border-gray-300 rounded-lg resize-y
+             focus:outline-none focus:ring-2 focus:ring-black"
     />
+
     <button
       @click="optimizeText"
       :disabled="isLoading"
-      class="optimize-btn"
+      class="w-full py-3 rounded-lg bg-black text-white transition flex items-center justify-center gap-2
+             hover:bg-[#444] disabled:bg-[#777] disabled:cursor-not-allowed"
     >
       <span v-if="!isLoading">Optimize</span>
-      <span v-else class="spinner-wrapper">
-        <span class="spinner"></span>
+
+      <span v-else class="flex items-center gap-2">
+        <span class="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
         Optimizing...
       </span>
     </button>
+
   </div>
 </template>
 
 <script setup lang="ts">
+
+/**
+ * InputPanel.vue
+ * Handles user text input and communicates with the backend /optimize endpoint.
+ * Displays loading state during API requests.
+ */
+
 import { ref } from 'vue'
 import { useReaderStore } from '../store/readerStore.ts'
 
@@ -30,6 +44,7 @@ const API_URL = import.meta.env.VITE_API_URL
 const isLoading = ref(false)
 
 async function optimizeText() {
+  // Prevent empty submissions and duplicate API calls
   if (!reader.text.trim() || isLoading.value) return
 
   try {
@@ -54,69 +69,3 @@ async function optimizeText() {
 }
 </script>
 
-
-<style scoped>
-.input-panel {
-    display: flex;
-    flex-direction: column;
-    padding: 1rem;
-    background: #FFF;
-    border-radius: 12px;
-    border: 1px solid #888;
-}
-
-.input-box {
-    min-height: 150px;
-    padding: 1rem;
-    font-size: 1rem;
-    border-radius: 8px;
-    border: 1px solid #888;
-    resize: vertical;
-}
-
-.optimize-btn {
-  margin-top: 1rem;
-  padding: 0.7rem 1.2rem;
-  border-radius: 8px;
-  border: none;
-  background: #000;
-  color: #EEE;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.optimize-btn:hover:not(:disabled) {
-  background: #444;
-}
-
-.optimize-btn:disabled {
-  background: #777;
-  cursor: not-allowed;
-  opacity: 0.8;
-}
-
-.spinner-wrapper {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.spinner {
-  width: 14px;
-  height: 14px;
-  border: 2px solid #fff;
-  border-top: 2px solid transparent;
-  border-radius: 50%;
-  animation: spin 0.7s linear infinite;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-</style>

@@ -1,19 +1,26 @@
 <template>
-  <div class="app">
-    <header class="header">
-      <h1>Unblur</h1>
-      <p class="tagline">A clearer way to read.</p>
+  <div class="min-h-screen px-4 md:px-6 py-6 max-w-6xl mx-auto">
+    <!--header-->
+    <header class="text-center mb-6">
+      <h1 class="text-3xl md:text-4xl font-bold">
+        Unblur
+      </h1>
+      <p class="text-gray-700 mt-2">
+        A clearer way to read.
+      </p>
     </header>
-
-    <div class="grid-layout">
-      <div class="top-row">
+    <!--input row-->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6 items-stretch">
+      <div class="md:col-span-2">
         <InputPanel />
+      </div>
+      <div>
         <ControlPanel />
       </div>
-
-      <div class="bottom-row">
-        <ReaderView />
-      </div>
+    </div>
+    <!--reader row-->
+    <div>
+      <ReaderView />
     </div>
   </div>
 </template>
@@ -23,37 +30,3 @@ import InputPanel from './components/InputPanel.vue'
 import ControlPanel from './components/ControlPanel.vue'
 import ReaderView from './components/ReaderView.vue'
 </script>
-
-<style scoped>
-.app {
-  padding: 1rem;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.header {
-  text-align: center;
-  margin-bottom: 2rem;
-}
-
-.tagline {
-  color: #666;
-  margin-top: 0.25rem;
-}
-
-.grid-layout {
-  display: grid;
-  gap: 2rem;
-}
-
-.top-row {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 2rem;
-  align-items: stretch;
-}
-
-.bottom-row {
-  width: 100%;
-}
-</style>

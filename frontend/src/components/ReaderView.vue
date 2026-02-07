@@ -1,14 +1,40 @@
 <template>
-  <div :class="['reader-wrapper', reader.theme]">
-    <div class="reader" :style="readerStyles">
-      <p v-for="(paragraph, index) in paragraphs" :key="index">
+  <div
+    :class="[
+      'rounded-xl border border-gray-300 shadow-sm p-6 overflow-y-auto max-h-[275px] transition-colors duration-300',
+      themeClasses
+    ]"
+  >
+    <div
+      v-if="paragraphs.length === 0"
+      class="text-gray-400 italic text-center"
+    >
+      Your optimized reading view will appear here.
+    </div>
+    <div
+      :style="readerStyles"
+      class="mx-auto break-words whitespace-pre-wrap transition-all duration-200"
+    >
+      <p
+        v-for="(paragraph, index) in paragraphs"
+        :key="index"
+        class="mb-5"
+      >
         {{ paragraph }}
       </p>
     </div>
   </div>
 </template>
 
+
 <script setup lang="ts">
+
+/**
+ * ReaderView.vue
+ * Renders formatted text based on current reader settings.
+ * Applies dynamic typography styles and theme.
+ */
+
 import { computed } from 'vue'
 import { useReaderStore } from '../store/readerStore'
 
@@ -24,43 +50,17 @@ const readerStyles = computed(() => ({
   letterSpacing: `${reader.letterSpacing}px`,
   wordSpacing: `${reader.wordSpacing}px`,
   maxWidth: `${reader.maxWidth}px`,
-  margin: '0 auto'
 }))
+
+const themeClasses = computed(() => {
+  switch (reader.theme) {
+    case "dark":
+      return "bg-gray-900 text-gray-100"
+    case "sepia":
+      return "bg-[#f4ecd8] text-[#5b4636]"
+    default:
+      return "bg-white text-gray-900"
+  }
+})
+
 </script>
-
-<style scoped>
-.reader-wrapper {
-  padding: 0 1rem;
-  height: 175px;
-  overflow-y: auto;
-  border-radius: 12px;
-  transition: background 0.3s, color 0.3s;
-}
-
-.reader-wrapper.light {
-  background: #ffffff;
-  color: #111111;
-}
-
-.reader-wrapper.sepia {
-  background: #f4ecd8;
-  color: #5b4636;
-}
-
-.reader-wrapper.dark {
-  background: #1e1e1e;
-  color: #eaeaea;
-}
-
-.reader {
-  transition: all 0.2s ease;
-  overflow-wrap: break-word;
-  word-break: break-word;
-  white-space: pre-wrap;
-  padding: 0 2rem;
-}
-
-.reader p {
-  margin-bottom: 1.2em;
-}
-</style>
